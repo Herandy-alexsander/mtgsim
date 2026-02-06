@@ -73,9 +73,9 @@ mtgsim/
     ├── CardSystem.md
     └── NetworkFlow.md
 
+```
 
-
-    ## 🐍 Tecnologias Utilizadas
+ ## 🐍 Tecnologias Utilizadas
 
 ### Cliente
 - **Python**
