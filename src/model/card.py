@@ -1,92 +1,104 @@
 import pygame
-import os
-import re
+import re  # Essencial para processar os custos de mana
+
+# Configurações de tamanho para layout de 4 jogadores
+CARD_WIDTH = 80
+CARD_HEIGHT = 112
+ZOOM_SCALE = 3.0
 
 class Card:
-    def __init__(self, name, assets_mgr, nome_deck):
+    def __init__(self, name, assets_mgr, deck_name=None):
         self.name = name
-        self.image = assets_mgr.get_card_image(nome_deck, name)
-        self.rect = self.image.get_rect()
-        
-        # Dados do JSON
-        data = assets_mgr.get_card_data(nome_deck, name)
-        self.type_line = data.get("type_line", "")
-        self.mana_cost_raw = data.get("mana_cost", "")
-        self.cmc = data.get("cmc", 0)
-        
-        # --- NOVOS ATRIBUTOS PARA EFEITOS E ANEXOS ---
-        self.oracle_text = data.get("oracle_text", "")  # Descrição das regras
-        self.keywords = data.get("keywords", [])        # Ex: ['Haste', 'Flying']
-        self.host_card = None  # Se for um equipamento/aura, indica em qual criatura está
-        # ---------------------------------------------
-
-        # Atributos de Estado
         self.tapped = False
+        
+        # --- ESTADOS DE INTERAÇÃO (Essenciais para o main.py) ---
         self.dragging = False
         self.is_hovered = False
+        self.host_card = None  
         
-        # Converte a string "{B}{1}" em um dicionário amigável
-        self.mana_cost_dict = self._parse_mana_cost(self.mana_cost_raw)
-
-    def _parse_mana_cost(self, mana_str):
-        custo = {'white': 0, 'blue': 0, 'black': 0, 'red': 0, 'green': 0, 'colorless': 0, 'generic': 0}
-        if not mana_str: return custo
+        # --- ATRIBUTOS DE REGRAS (Essenciais para o RulesEngine) ---
+        self.is_land = False
+        self.is_instant = False
+        self.has_flash = False
+        self.type_line = ""
+        self.oracle_text = ""
+        self.mana_cost = ""
+        self.mana_value = 0  # <--- NOVO: Valor numérico (CMC) para cálculos
         
-        simbolos = re.findall(r'{(.*?)}', mana_str)
-        for s in simbolos:
-            s = s.upper()
-            if s == 'W': custo['white'] += 1
-            elif s == 'U': custo['blue'] += 1
-            elif s == 'B': custo['black'] += 1
-            elif s == 'R': custo['red'] += 1
-            elif s == 'G': custo['green'] += 1
-            elif s == 'C': custo['colorless'] += 1
-            elif s.isdigit(): custo['generic'] += int(s)
-        return custo
+        # Carrega a imagem original do gerenciador
+        self.original_image = assets_mgr.get_card_image(name, deck_name)
+        
+        # --- PROCESSAMENTO DE DADOS (JSON) ---
+        if assets_mgr.card_data_cache and name in assets_mgr.card_data_cache:
+            data = assets_mgr.card_data_cache[name]
+            self.type_line = data.get('type_line', '')
+            self.oracle_text = data.get('oracle_text', '')
+            self.mana_cost = data.get('mana_cost', '')
+            
+            self.is_land = "Land" in self.type_line
+            self.is_instant = "Instant" in self.type_line
+            self.has_flash = "Flash" in (self.oracle_text or "")
+            
+            # Calcula o valor numérico do custo de mana
+            self.mana_value = self._calculate_mana_value(self.mana_cost)
+        
+        # Fallback para Terrenos Básicos (caso o JSON falhe)
+        terrenos_basicos = ["Plains", "Island", "Swamp", "Mountain", "Forest", "Wastes"]
+        if not self.type_line:
+            if any(t in self.name for t in terrenos_basicos):
+                self.is_land = True
+                self.type_line = "Basic Land"
+                self.mana_value = 0
 
-    @property
-    def is_land(self):
-        return "land" in self.type_line.lower()
+        # --- CONFIGURAÇÃO VISUAL ---
+        self.image_small = pygame.transform.smoothscale(self.original_image, (CARD_WIDTH, CARD_HEIGHT))
+        
+        # Criamos a imagem de Zoom
+        w_zoom, h_zoom = int(CARD_WIDTH * ZOOM_SCALE), int(CARD_HEIGHT * ZOOM_SCALE)
+        self.image_zoom = pygame.transform.smoothscale(self.original_image, (w_zoom, h_zoom))
+        
+        self.image = self.image_small
+        self.rect = self.image.get_rect()
 
-    @property
-    def is_instant(self):
-        return "instant" in self.type_line.lower()
+    def _calculate_mana_value(self, cost_str):
+        """Converte strings como {1}{W}{B} em um número inteiro (ex: 3)."""
+        if not cost_str:
+            return 0
+        # Encontra todos os valores dentro das chaves {}
+        symbols = re.findall(r'\{(.*?)\}', cost_str)
+        total = 0
+        for s in symbols:
+            if s.isdigit():
+                total += int(s)
+            elif s in ['W', 'U', 'B', 'R', 'G', 'C', 'S']:
+                total += 1
+            elif '/' in s: # Para custos híbridos como {W/B}
+                total += 1
+        return total
 
     def toggle_tap(self, force_untap=False):
-        if force_untap:
-            self.tapped = False
-        else:
-            self.tapped = not self.tapped
-            
+        self.tapped = False if force_untap else not self.tapped
+
     def update_position(self, mouse_pos):
         if self.dragging:
             self.rect.center = mouse_pos
-            # Ao arrastar manualmente, o equipamento se solta do host (opcional, regra do MTG)
-            # self.host_card = None 
-        elif self.host_card:
-            # --- LÓGICA DE EMPILHAMENTO (OFFSET) ---
-            # Deslocamento de 20% para a esquerda (negativo) e para cima (negativo)
-            offset_x = self.rect.width * 0.20
-            offset_y = self.rect.height * 0.20
-            
-            self.rect.x = self.host_card.rect.x - offset_x
-            self.rect.y = self.host_card.rect.y - offset_y
-        
+
     def draw(self, surface):
-        img_final = self.image
-        
-        # Se estiver virada, rotaciona
-        if self.tapped:
-            img_final = pygame.transform.rotate(self.image, -90)
-            rect_desenho = img_final.get_rect(center=self.rect.center)
+        if self.is_hovered:
+            img_to_draw = self.image_zoom
+            rect_to_draw = img_to_draw.get_rect(center=self.rect.center)
+            rect_to_draw.clamp_ip(surface.get_rect())
         else:
-            rect_desenho = self.rect
+            img_to_draw = self.image_small
+            rect_to_draw = self.rect
 
-        # Se houver hover (e não estiver arrastando), amplia
-        if self.is_hovered and not self.dragging:
-            largura, altura = img_final.get_size()
-            img_final = pygame.transform.smoothscale(img_final, (int(largura * 1.4), int(altura * 1.4)))
-            rect_desenho = img_final.get_rect(center=self.rect.center)
-            rect_desenho.y -= 60 
-
-        surface.blit(img_final, rect_desenho)
+        if self.tapped:
+            img_rot = pygame.transform.rotate(img_to_draw, -90)
+            rect_rot = img_rot.get_rect(center=rect_to_draw.center)
+            surface.blit(img_rot, rect_rot)
+            if self.is_hovered:
+                pygame.draw.rect(surface, (255, 255, 0), rect_rot, 3)
+        else:
+            surface.blit(img_to_draw, rect_to_draw)
+            if self.is_hovered:
+                pygame.draw.rect(surface, (255, 255, 0), rect_to_draw, 3)

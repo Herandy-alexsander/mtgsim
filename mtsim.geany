@@ -28,13 +28,13 @@ long_line_behaviour=1
 long_line_column=72
 
 [files]
-current_page=0
-FILE_NAME_0=14212;Python;0;EUTF-8;1;1;0;C%3A%5CUsers%5Calexsander%5Cprojects%5Cmtsim%5Cmain.py;0;4
-FILE_NAME_1=3586;Python;0;EUTF-8;1;1;0;C%3A%5CUsers%5Calexsander%5Cprojects%5Cmtsim%5Csrc%5Cmodel%5Ccard.py;0;4
-FILE_NAME_2=4517;Python;0;EUTF-8;1;1;0;C%3A%5CUsers%5Calexsander%5Cprojects%5Cmtsim%5Csrc%5Cmodel%5Cplayer.py;0;4
-FILE_NAME_3=7754;Python;0;EUTF-8;1;1;0;C%3A%5CUsers%5Calexsander%5Cprojects%5Cmtsim%5Csrc%5Cview%5Cassets_mgr.py;0;4
+current_page=8
+FILE_NAME_0=15407;Python;0;EUTF-8;1;1;0;C%3A%5CUsers%5Calexsander%5Cprojects%5Cmtsim%5Cmain.py;0;4
+FILE_NAME_1=4157;Python;0;EUTF-8;1;1;0;C%3A%5CUsers%5Calexsander%5Cprojects%5Cmtsim%5Csrc%5Cmodel%5Ccard.py;0;4
+FILE_NAME_2=8462;Python;0;EUTF-8;1;1;0;C%3A%5CUsers%5Calexsander%5Cprojects%5Cmtsim%5Csrc%5Cmodel%5Cplayer.py;0;4
+FILE_NAME_3=6332;Python;0;EUTF-8;1;1;0;C%3A%5CUsers%5Calexsander%5Cprojects%5Cmtsim%5Csrc%5Cview%5Cassets_mgr.py;0;4
 FILE_NAME_4=3361;Python;0;EUTF-8;1;1;0;C%3A%5CUsers%5Calexsander%5Cprojects%5Cmtsim%5Csrc%5Cmodel%5Cturn_manager.py;0;4
-FILE_NAME_5=1672;Python;0;EUTF-8;1;1;0;C%3A%5CUsers%5Calexsander%5Cprojects%5Cmtsim%5Csrc%5Cutils%5Cmana_utils.py;0;4
-FILE_NAME_6=4707;Python;0;EUTF-8;1;1;0;C%3A%5CUsers%5Calexsander%5Cprojects%5Cmtsim%5Csrc%5Ccontroller%5Crules_engine.py;0;4
-FILE_NAME_7=7617;Python;0;EUTF-8;1;1;0;C%3A%5CUsers%5Calexsander%5Cprojects%5Cmtsim%5Csrc%5Ccontroller%5Ceffect_engine.py;0;4
-FILE_NAME_8=3043;Python;0;EUTF-8;1;1;0;C%3A%5CUsers%5Calexsander%5Cprojects%5Cmtsim%5Csrc%5Ccontroller%5Cattachment_manager.py;0;4
+FILE_NAME_5=3043;Python;0;EUTF-8;1;1;0;C%3A%5CUsers%5Calexsander%5Cprojects%5Cmtsim%5Csrc%5Ccontroller%5Cattachment_manager.py;0;4
+FILE_NAME_6=2057;Python;0;EUTF-8;1;1;0;C%3A%5CUsers%5Calexsander%5Cprojects%5Cmtsim%5Csrc%5Cview%5Ctable_manager.py;0;4
+FILE_NAME_7=1666;Python;0;EUTF-8;1;1;0;C%3A%5CUsers%5Calexsander%5Cprojects%5Cmtsim%5Csrc%5Ccontroller%5Cai_engine.py;0;4
+FILE_NAME_8=5944;Python;0;EUTF-8;1;1;0;C%3A%5CUsers%5Calexsander%5Cprojects%5Cmtsim%5Csrc%5Ccontroller%5Crules_engine.py;0;4

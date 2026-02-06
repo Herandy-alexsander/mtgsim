@@ -1,174 +1,152 @@
 import pygame
 import os
 import requests
+import threading
 import json
-import re # Importante para lidar com caracteres especiais
 
 class AssetsManager:
     def __init__(self):
-        # Define o caminho base como a pasta 'assets' na raiz do projeto
-        base_dir = os.path.dirname(os.path.abspath(__file__))
-        self.assets_dir = os.path.join(base_dir, "..", "..", "assets")
-        self.decks_dir = os.path.join(self.assets_dir, "decks")
+        self.card_images = {}
+        # --- CORREÇÃO DO ERRO ---
+        # Inicializamos o cache de dados para que a classe Card possa consultá-lo
+        self.card_data_cache = {} 
+        self.download_queue = []
+        self.is_downloading = False
         
-        # Cria as pastas se não existirem
-        os.makedirs(self.decks_dir, exist_ok=True)
-        
-        # Cache de imagens para não carregar do disco toda hora
-        self.image_cache = {}
-        
-        # Imagem padrão (verso da carta)
-        self.card_back = pygame.Surface((223, 310))
-        self.card_back.fill((20, 20, 20)) # Fundo escuro
-        pygame.draw.rect(self.card_back, (100, 100, 100), (10, 10, 203, 290), 2)
-        # Um X no meio para indicar erro de carregamento visualmente
-        pygame.draw.line(self.card_back, (100,50,50), (0,0), (223,310), 3)
-        pygame.draw.line(self.card_back, (100,50,50), (223,0), (0,310), 3)
+        # Cria uma fonte padrão para desenhar placeholders
+        pygame.font.init()
+        self.font = pygame.font.SysFont("Arial", 14)
 
-    def _sanitize_filename(self, name):
-        """Remove caracteres proibidos no Windows e comuns em cartas (ex: //, :)"""
-        # Substitui : e / por nada ou sublinhado para tentar achar o arquivo
-        name = name.replace(" // ", "_") # Cartas duplas
-        name = name.replace(":", "")     # Ex: Circle of Protection: Red
-        name = name.replace("'", "")     # Ex: Bolas's Citadel -> Bolass Citadel
-        name = name.replace("?", "")
-        name = name.replace('"', "")
-        return name
+    def get_card_image(self, card_name, deck_name=None):
+        """
+        Retorna a imagem da carta. Se não existir, retorna um placeholder
+        e tenta carregar do disco.
+        """
+        # Se já está na memória RAM, retorna direto
+        if card_name in self.card_images:
+            return self.card_images[card_name]
 
-    def get_card_image(self, deck_name, card_name):
-        """Retorna a Surface da imagem. Tenta variações de nome se não achar de primeira."""
-        key = f"{deck_name}/{card_name}"
-        if key in self.image_cache:
-            return self.image_cache[key]
+        # Tenta carregar do disco
+        image = self.load_from_disk(card_name, deck_name)
         
-        folder = os.path.join(self.decks_dir, deck_name)
+        if image:
+            self.card_images[card_name] = image
+            return image
         
-        # TENTATIVA 1: Nome Exato
-        candidates = [
-            f"{card_name}.jpg",
-            f"{card_name}.png",
-            f"{card_name}.jpeg"
-        ]
-        
-        # TENTATIVA 2: Nome Sanitizado (Sem ' : ou //)
-        clean_name = self._sanitize_filename(card_name)
-        candidates.append(f"{clean_name}.jpg")
-        
-        # TENTATIVA 3: Nome Sanitizado mantendo espaços simples
-        # Às vezes 'Bolas's' vira 'Bolass', às vezes 'Bolas'
-        candidates.append(f"{card_name.replace("'", "")}.jpg")
+        # Se não achou em lugar nenhum, cria um placeholder temporário
+        return self.create_placeholder(card_name)
 
-        image_path = None
-        for filename in candidates:
-            path_temp = os.path.join(folder, filename)
-            if os.path.exists(path_temp):
-                image_path = path_temp
-                break
+    def load_from_disk(self, card_name, deck_name):
+        """Tenta encontrar o arquivo de imagem nas pastas."""
+        base_path = os.path.join("assets", "decks")
+        possible_paths = []
         
-        if image_path:
-            try:
-                img = pygame.image.load(image_path).convert()
-                img = pygame.transform.scale(img, (223, 310))
-                self.image_cache[key] = img
-                return img
-            except Exception as e:
-                print(f"Erro ao carregar imagem {card_name} (Path: {image_path}): {e}")
-        else:
-            print(f"IMAGEM NÃO ENCONTRADA: {card_name} (Tentado: {candidates})")
+        # Gera nomes de arquivo possíveis (ex: "Sol Ring.jpg", "Sol Ring.png")
+        extensions = [".jpg", ".png", ".jpeg"]
         
-        return self.card_back
+        # 1. Procura na pasta específica do deck
+        if deck_name:
+            for ext in extensions:
+                possible_paths.append(os.path.join(base_path, deck_name, card_name + ext))
+        
+        # 2. Procura numa pasta genérica 'cache' ou 'all_cards' (opcional)
+        for ext in extensions:
+            possible_paths.append(os.path.join("assets", "cards", card_name + ext))
 
-    def get_card_data(self, deck_name, card_name):
-        """Lê o JSON do deck e retorna os dados da carta."""
-        json_path = os.path.join(self.decks_dir, deck_name, "deck_data.json")
+        for path in possible_paths:
+            if os.path.exists(path):
+                try:
+                    img = pygame.image.load(path).convert_alpha()
+                    # Tenta carregar o JSON de dados associado se existir
+                    json_path = path.rsplit('.', 1)[0] + ".json"
+                    if os.path.exists(json_path):
+                        with open(json_path, 'r', encoding='utf-8') as f:
+                            self.card_data_cache[card_name] = json.load(f)
+                    return img
+                except Exception as e:
+                    print(f"Erro ao carregar imagem {path}: {e}")
         
-        if not os.path.exists(json_path): return {}
+        return None
 
-        try:
-            with open(json_path, 'r', encoding='utf-8') as f:
-                deck_data = json.load(f)
+    def create_placeholder(self, text):
+        """Cria uma imagem cinza com o nome da carta (para quando a imagem falta)."""
+        surface = pygame.Surface((220, 300))
+        surface.fill((100, 100, 100)) # Cinza
+        pygame.draw.rect(surface, (200, 200, 200), (5, 5, 210, 290), 2) # Borda
+        
+        # Renderiza o texto (quebra de linha simples)
+        words = text.split()
+        y = 50
+        for word in words:
+            txt_img = self.font.render(word, True, (255, 255, 255))
+            surface.blit(txt_img, (110 - txt_img.get_width()//2, y))
+            y += 20
             
-            # Busca pelo nome exato
-            for card_info in deck_data:
-                if card_info.get("name") == card_name:
-                    return card_info
-            
-            # Se não achou exato, tenta busca parcial (para resolver casos de apóstrofo no JSON)
-            clean_search = self._sanitize_filename(card_name).lower()
-            for card_info in deck_data:
-                clean_json_name = self._sanitize_filename(card_info.get("name", "")).lower()
-                if clean_search == clean_json_name:
-                    return card_info
-            
-            return {}
-        except Exception as e:
-            print(f"Erro JSON {card_name}: {e}")
-            return {}
+        return surface
 
-    def baixar_deck_completo(self, deck_name, card_list, screen, font):
-        """Baixa imagens e cria o JSON de dados."""
-        path_deck = os.path.join(self.decks_dir, deck_name)
-        os.makedirs(path_deck, exist_ok=True)
+    def baixar_deck_completo(self, nome_deck, lista_cartas, tela, fonte):
+        """
+        Baixa imagens e dados (JSON) do Scryfall.
+        """
+        base_dir = os.path.join("assets", "decks", nome_deck)
+        if not os.path.exists(base_dir):
+            os.makedirs(base_dir)
+            
+        total = len(lista_cartas)
         
-        data_collection = []
-        total = len(card_list)
-        
-        for i, card_name in enumerate(card_list):
-            # Renderiza status
-            screen.fill((30, 30, 30))
-            txt = font.render(f"Baixando: {card_name} ({i+1}/{total})", True, (255, 255, 255))
-            screen.blit(txt, (screen.get_width()//2 - txt.get_width()//2, screen.get_height()//2))
+        for i, card_name in enumerate(lista_cartas):
+            # Atualiza tela de carregamento
+            tela.fill((0, 0, 0))
+            texto = fonte.render(f"Baixando: {card_name} ({i+1}/{total})", True, (255, 255, 255))
+            tela.blit(texto, (tela.get_width()//2 - texto.get_width()//2, tela.get_height()//2))
             pygame.display.flip()
-
-            # API Scryfall (Busca fuzzy para ser mais tolerante com nomes)
-            # Usar 'fuzzy' em vez de 'exact' ajuda com acentos e pequenos erros
-            url_search = f"https://api.scryfall.com/cards/named?fuzzy={card_name}"
             
+            # Caminhos de destino
+            caminho_img = os.path.join(base_dir, f"{card_name}.jpg")
+            caminho_json = os.path.join(base_dir, f"{card_name}.json")
+            
+            # Pula se já existe
+            if os.path.exists(caminho_img) and os.path.exists(caminho_json):
+                # Carrega o JSON para a memória já que estamos aqui
+                try:
+                    with open(caminho_json, 'r', encoding='utf-8') as f:
+                        self.card_data_cache[card_name] = json.load(f)
+                except: pass
+                continue
+                
             try:
-                resp = requests.get(url_search, timeout=5)
+                # 1. Busca dados na API
+                url_api = f"https://api.scryfall.com/cards/named?exact={card_name}"
+                resp = requests.get(url_api, timeout=5)
+                
                 if resp.status_code == 200:
-                    card_data = resp.json()
+                    data = resp.json()
                     
-                    # Salva dados para o JSON
-                    data_collection.append({
-                        "name": card_name, # Salva com o nome que está na SUA lista (importante para o link funcionar)
-                        "real_name": card_data.get("name"), # Nome oficial
-                        "type_line": card_data.get("type_line", ""),
-                        "mana_cost": card_data.get("mana_cost", ""),
-                        "cmc": card_data.get("cmc", 0),
-                        "oracle_text": card_data.get("oracle_text", "")
-                    })
+                    # Salva JSON (Importante para saber se é Land depois!)
+                    relevant_data = {
+                        "name": data.get("name"),
+                        "type_line": data.get("type_line"),
+                        "oracle_text": data.get("oracle_text", ""),
+                        "mana_cost": data.get("mana_cost", "")
+                    }
+                    with open(caminho_json, 'w', encoding='utf-8') as f:
+                        json.dump(relevant_data, f, ensure_ascii=False)
+                    
+                    # Guarda no cache em memória agora
+                    self.card_data_cache[card_name] = relevant_data
 
-                    # Baixa a imagem
-                    img_url = None
-                    if "image_uris" in card_data:
-                        img_url = card_data["image_uris"]["normal"]
-                    elif "card_faces" in card_data:
-                        img_url = card_data["card_faces"][0]["image_uris"]["normal"]
-                    
-                    if img_url:
-                        # Salva a imagem com o nome exato da lista .txt para garantir o load
-                        # Se tiver caractere invalido, removemos APENAS na hora de salvar o arquivo
-                        safe_filename = self._sanitize_filename(card_name) + ".jpg"
-                        self._download_image(img_url, path_deck, safe_filename)
+                    # 2. Baixa Imagem
+                    if "image_uris" in data:
+                        img_url = data["image_uris"]["normal"]
+                        img_data = requests.get(img_url).content
+                        with open(caminho_img, 'wb') as f:
+                            f.write(img_data)
+                    else:
+                        print(f"Sem imagem para {card_name}")
                 else:
-                    print(f"Scryfall não achou: {card_name}")
+                    print(f"Erro Scryfall {card_name}: {resp.status_code}")
+                    
             except Exception as e:
-                print(f"Erro download {card_name}: {e}")
+                print(f"Erro ao baixar {card_name}: {e}")
 
-        # Salva o JSON
-        with open(os.path.join(path_deck, "deck_data.json"), "w", encoding='utf-8') as f:
-            json.dump(data_collection, f, indent=4)
-
-    def _download_image(self, url, folder, filename):
-        try:
-            path_img = os.path.join(folder, filename)
-            # Só baixa se não existir
-            if not os.path.exists(path_img):
-                r = requests.get(url, stream=True)
-                if r.status_code == 200:
-                    with open(path_img, 'wb') as f:
-                        for chunk in r.iter_content(1024):
-                            f.write(chunk)
-        except Exception as e:
-            print(f"Erro ao salvar arquivo {filename}: {e}")
+            pygame.event.pump() # Mantém a janela viva

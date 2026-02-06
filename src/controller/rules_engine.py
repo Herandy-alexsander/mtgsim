@@ -1,3 +1,5 @@
+import re
+
 class RulesEngine:
     @staticmethod
     def can_play(player, card, fase_atual):
@@ -12,7 +14,8 @@ class RulesEngine:
 
         fase_nome = fase_atual.lower()
         is_main_phase = "main" in fase_nome or "principal" in fase_nome
-        has_flash = "flash" in card.type_line.lower()
+        # Melhorei a detecção de Flash para checar tanto no type_line quanto no oracle_text
+        has_flash = "flash" in card.type_line.lower() or "flash" in getattr(card, 'oracle_text', '').lower()
         
         print(f"\n--- ANALISANDO JOGADA: {card.name} ---")
 
@@ -31,7 +34,12 @@ class RulesEngine:
             return True
 
         # REGRA 3: Mana (Com Auto Tap)
+        # --- CORREÇÃO AQUI: Se não existe o dict, nós criamos a partir da string ---
         custo = getattr(card, 'mana_cost_dict', None)
+        if not custo and hasattr(card, 'mana_cost'):
+            custo = RulesEngine._parse_cost_to_dict(card.mana_cost)
+            card.mana_cost_dict = custo # Salva na carta para não ter que processar de novo
+
         if not custo:
             print(f"ERRO: Custo de mana de {card.name} não definido.")
             return False
@@ -56,8 +64,6 @@ class RulesEngine:
         # Validamos se com o potencial dos terrenos a conta fecha
         if RulesEngine._validar_pagamento(pool_simulada, custo):
             print(f"Sucesso: {card.name} será pago via Auto Tap!")
-            # Aciona a função no jogador para virar os terrenos e pagar
-            # Certifique-se de que seu Player tenha a função auto_tap_for_cost implementada
             if hasattr(player, 'auto_tap_for_cost'):
                 player.auto_tap_for_cost(custo)
                 return True
@@ -67,6 +73,26 @@ class RulesEngine:
 
         print(f"Bloqueado: Mana insuficiente mesmo com terrenos disponíveis.")
         return False
+
+    @staticmethod
+    def _parse_cost_to_dict(mana_str):
+        """Converte {1}{W}{B} para {'generic': 1, 'white': 1, 'black': 1}"""
+        dict_cost = {"white":0, "blue":0, "black":0, "red":0, "green":0, "colorless":0, "generic":0}
+        if not mana_str: return dict_cost
+        
+        mapping = {'W': 'white', 'U': 'blue', 'B': 'black', 'R': 'red', 'G': 'green', 'C': 'colorless'}
+        symbols = re.findall(r'\{(.*?)\}', mana_str)
+        
+        for s in symbols:
+            if s.isdigit():
+                dict_cost["generic"] += int(s)
+            elif s in mapping:
+                dict_cost[mapping[s]] += 1
+            elif '/' in s: # Exemplo {W/B}
+                # Para simplificar auto-tap, tratamos híbrido como a primeira cor
+                cor_hibrida = mapping.get(s.split('/')[0], 'generic')
+                dict_cost[cor_hibrida] += 1
+        return dict_cost
 
     @staticmethod
     def _validar_pagamento(pool, custo):
@@ -79,13 +105,13 @@ class RulesEngine:
                 return False
             temp_pool[cor] -= valor_custo
         
-        # Genérico
+        # Genérico (pode ser pago por qualquer sobra de qualquer cor)
         total_restante = sum(temp_pool.values())
         return custo.get("generic", 0) <= total_restante
 
     @staticmethod
     def _get_land_color(card):
-        """Detecta que cor o terreno produz (Auxiliar para a simulação)."""
+        """Detecta que cor o terreno produz."""
         tl = card.type_line.lower()
         if "forest" in tl: return "green"
         if "island" in tl: return "blue"
