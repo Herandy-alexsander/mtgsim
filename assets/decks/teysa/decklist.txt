@@ -1,0 +1,74 @@
+1 Scoured Barrens
+14 Swamp
+14 Plains
+1 Forsaken Sanctuary
+1 Evolving Wilds
+1 Emergence Zone
+1 Traveler's Amulet
+1 Legion's Landing
+1 Indebted Spirit
+1 Vampiric Rites
+1 Hunted Witness
+1 Doomed Traveler
+1 Skirsdag High Priest
+1 Ayli, Eternal Pilgrim
+1 Shambling Ghoul
+1 Tithe Taker
+1 Hidden Stockpile
+1 Norn's Wellspring
+1 Blood Funnel
+1 Orzhov Enforcer
+1 Imperious Oligarch
+1 Rite of Oblivion
+1 Black Market Connections
+1 Rootborn Defenses
+1 Elder Arthur Maxson
+1 Fain, the Broker
+1 Mana Geode
+1 Kambal, Profiteering Mayor
+1 Ministrant of Obligation
+1 Oketra's Monument
+1 The Cauldron of Eternity
+1 Roc Egg
+1 Teysa, Orzhov Scion
+1 Twilight Drover
+1 Dark Tutelage
+1 Vessel of Endless Rest
+1 Smothering Abomination
+1 Angelic Accord
+1 Ajani, Strength of the Pride
+1 Marshal's Anthem
+1 Baron Bertram Graywater
+1 Field of Souls
+1 Dramatic Finale
+1 Gandalf, White Rider
+1 Syndicate Messenger
+1 Blood for Bones
+1 Seraph of the Scales
+1 Whisper, Blood Liturgist
+1 Teysa Karlov
+1 Zeriam, Golden Wind
+1 Ao, the Dawn Sky
+1 Herald of the Host
+1 Reveillark
+1 Maw of the Obzedat
+1 Cathars' Crusade
+1 Dictate of Erebos
+1 Dictate of Heliod
+1 Invasion of Tolvada
+1 Krav, the Unredeemed
+1 Geist-Honored Monk
+1 Infernal Offering
+1 Life Insurance
+1 Shadrix Silverquill
+1 Ethereal Absolution
+1 Requiem Angel
+1 Descend Upon the Sinful
+1 Bolas's Citadel
+1 Command the Dreadhorde
+1 Elspeth, Sun's Champion
+1 Martyr's Bond
+1 Regna, the Redeemer
+1 Phyrexian Rebirth
+1 Brilliant Restoration
+1 Dusk

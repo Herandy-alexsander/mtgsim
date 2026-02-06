@@ -4,11 +4,11 @@ from src.model.card import Card
 class Player:
     def __init__(self, name, deck_list):
         self.name = name
-        self.library = deck_list  # Lista com nomes das cartas
+        self.library = list(deck_list)  # Cria uma cópia da lista para não afetar o original
         self.hand = []            # Lista de objetos Card
         self.battlefield = []     # Cartas em jogo
         self.grave = []           # Cemitério
-        self.life = 20
+        self.life = 40            # Vida padrão Commander (ajuste para 20 se for padrão)
         
         # --- [ATRIBUTOS DE REGRAS] ---
         self.mana_pool = {
@@ -19,6 +19,7 @@ class Player:
         self.max_lands_per_turn = 1
 
     def shuffle(self):
+        """Embaralha a biblioteca do jogador."""
         random.shuffle(self.library)
 
     def draw(self, assets_mgr, quantidade, nome_deck):
@@ -89,8 +90,11 @@ class Player:
     def mulligan(self, assets_mgr, nome_deck, gratis=False):
         """Reinicia a mão seguindo a regra de mulligan."""
         nova_quantidade = 7 if gratis else max(0, len(self.hand) - 1)
+        
+        # Devolve a mão para o deck
         for carta in self.hand:
             self.library.append(carta.name)
+        
         self.hand = [] 
         self.shuffle() 
         self.draw(assets_mgr, nova_quantidade, nome_deck)
@@ -104,18 +108,10 @@ class Player:
             self.hand.remove(card)
             self.battlefield.append(card)
             
-            # --- DEBUG DE TEXTO (Para descobrir o erro) ---
+            # --- DEBUG DE TEXTO ---
             texto_lido = (card.oracle_text or "").lower()
-            print(f"--- DEBUG EFEITO [{card.name}] ---")
-            print(f"Texto bruto: '{texto_lido}'")
             
-            if "enters the battlefield tapped" in texto_lido:
-                print(">> DETECTADO: Deve entrar virado.")
-            else:
-                print(">> NADA DETECTADO: Entrará desvirado.")
-            # ---------------------------------------------
-
-            # Chama o motor de efeitos
+            # Chama o motor de efeitos (Importação local para evitar ciclo)
             from src.controller.effect_engine import EffectEngine
             EffectEngine.process_etb(card, self)
             
@@ -124,47 +120,63 @@ class Player:
             
             card.dragging = False
 
-    def organize_hand(self, largura_tela, altura_tela):
-        """Organiza a mão em leque."""
+    def organize_hand(self, quad_largura, quad_altura, quad_x, quad_y):
+        """Organiza a mão em leque, respeitando a posição do jogador (quadrante)."""
         if not self.hand: return
         
         num_cartas = len(self.hand)
-        overlap = min(120, (largura_tela - 200) // num_cartas)
+        # Ajusta sobreposição se tiver muitas cartas, mas mantém um máximo de 80px
+        overlap = min(80, (quad_largura - 100) // num_cartas) if num_cartas > 0 else 80
         largura_total = (num_cartas - 1) * overlap
-        x_inicial = largura_tela // 2 - largura_total // 2
+        
+        # Centraliza baseado na posição X do quadrante + metade da largura do quadrante
+        x_inicial = quad_x + (quad_largura // 2) - (largura_total // 2)
+        # Fixa no fundo do quadrante
+        target_y = quad_y + quad_altura - 80 
         
         for i, carta in enumerate(self.hand):
             if not carta.dragging:
                 target_x = x_inicial + (i * overlap)
-                target_y = altura_tela - 100
                 carta.rect.center = (target_x, target_y)
 
-    def organize_battlefield(self, largura_tela, altura_tela):
-        """Organiza o campo."""
+    def organize_battlefield(self, quad_largura, quad_altura, quad_x, quad_y):
+        """Organiza o campo dentro do quadrante específico do jogador."""
         terrenos = [c for c in self.battlefield if c.is_land]
         permanentes = [c for c in self.battlefield if not c.is_land]
 
-        x_perm = 150
-        y_perm = altura_tela // 2 - 20
+        # Configurações de layout relativas ao quadrante (quad_x, quad_y)
+        # Área de Permanentes (parte superior do quadrante)
+        x_perm = quad_x + 80
+        y_perm = quad_y + (quad_altura // 3) 
+        
         for carta in permanentes:
             if not carta.dragging:
                 carta.rect.center = (x_perm, y_perm)
-                x_perm += 160
+                x_perm += 110 # Espaçamento lateral
+                # Quebra de linha se passar da largura do quadrante
+                if x_perm > quad_x + quad_largura - 60:
+                    x_perm = quad_x + 80
+                    y_perm += 120
 
+        # Área de Terrenos (parte inferior do quadrante, acima da mão)
         pilhas = {}
         for t in terrenos:
             if t.name not in pilhas: pilhas[t.name] = []
             pilhas[t.name].append(t)
 
-        x_terreno = 150
-        y_terreno = altura_tela - 300
+        x_terreno = quad_x + 80
+        y_terreno = quad_y + (quad_altura // 1.8)
         
         for nome_carta, lista_cartas in pilhas.items():
             for i, carta in enumerate(lista_cartas):
                 if not carta.dragging:
-                    offset = i * 25 
-                    carta.rect.center = (x_terreno, y_terreno - offset)
-            x_terreno += 160
+                    offset = i * 20 
+                    carta.rect.center = (x_terreno, y_terreno + offset)
+            x_terreno += 90
+            # Quebra de linha para terrenos
+            if x_terreno > quad_x + quad_largura - 60:
+                x_terreno = quad_x + 80
+                y_terreno += 100
 
     def auto_tap_for_cost(self, custo_card):
         """
@@ -183,6 +195,7 @@ class Player:
         terrenos_disponiveis = [c for c in self.battlefield if c.is_land and not c.tapped]
         
         for terreno in terrenos_disponiveis:
+            # Se já pagou tudo (inclusive genérico), para.
             if sum(v for k, v in custo_restante.items() if k != 'generic') <= 0 and custo_restante.get('generic', 0) <= 0:
                 break
                 
