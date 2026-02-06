@@ -109,6 +109,7 @@ As cartas são definidas por **arquivos JSON**, permitindo fácil criação, bal
   "target": "player",
   "value": 3
 }
+```
 
 ## 🏆 Benefícios do Sistema
 A arquitetura foi pensada para flexibilidade e manutenção a longo prazo:
