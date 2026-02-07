@@ -1,0 +1,9 @@
+{
+  "name": "Colossal Dreadmaw",
+  "mana_cost": "{4}{G}{G}",
+  "type_line": "Creature — Dinosaur",
+  "oracle_text": "Trample",
+  "power": "6",
+  "toughness": "6",
+  "color_identity": ["G"]
+}
