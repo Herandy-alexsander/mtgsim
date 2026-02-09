@@ -1,1 +1,14 @@
-{"name": "Angelic Accord", "type_line": "Enchantment", "oracle_text": "At the beginning of each end step, if you gained 4 or more life this turn, create a 4/4 white Angel creature token with flying.", "mana_cost": "{3}{W}"}
+{
+    "name": "Angelic Accord",
+    "type_line": "Enchantment",
+    "mana_cost": "{3}{W}",
+    "cmc": 4.0,
+    "oracle_text": "At the beginning of each end step, if you gained 4 or more life this turn, create a 4/4 white Angel creature token with flying.",
+    "flavor_text": "As demons are drawn to suffering, angels are drawn to acts of benevolence.",
+    "power": "",
+    "toughness": "",
+    "rarity": "uncommon",
+    "colors": [
+        "W"
+    ]
+}

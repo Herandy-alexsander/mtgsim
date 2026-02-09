@@ -1,6 +1,6 @@
 class TurnManager:
     def __init__(self):
-        # Ordem das fases do Magic
+        # Ordem das fases do Magic (Mantidas conforme seu original)
         self.fases = [
             "UNTAP", "UPKEEP", "DRAW", 
             "MAIN 1", 
@@ -11,13 +11,32 @@ class TurnManager:
         self.fase_atual_idx = 0
         
         # --- [ATRIBUTOS DE ESTADO DO JOGO] ---
+        self.jogadores = []        # NOVO: Necessário para saber quem joga
+        self.indice_jogador_atual = 0 # NOVO: Para saber de quem é o turno
         self.quantidade_mulligans = 0
-        self.em_mulligan = True  # O jogo começa na fase de decisão de mão
+        self.em_mulligan = True  
 
         # --- [SISTEMA DE ALVOS / SELEÇÃO] ---
-        self.modo_selecao = False    # Indica se o jogo está esperando um clique de alvo
-        self.origem_alvo = None      # A carta que disparou a necessidade de um alvo
-        self.callback_alvo = None    # A função (efeito) que será executada ao confirmar o alvo
+        self.modo_selecao = False    
+        self.origem_alvo = None      
+        self.callback_alvo = None    
+
+    # --- [NOVOS MÉTODOS DE INTEGRAÇÃO] ---
+
+    def inicializar_jogadores(self, lista_jogadores):
+        """Método que o main.py chama para registrar os participantes."""
+        self.jogadores = lista_jogadores
+        self.indice_jogador_atual = 0
+        self.fase_atual_idx = 0
+        print(f"Partida inicializada com {len(self.jogadores)} jogadores.")
+
+    def get_jogador_atual(self):
+        """Retorna o objeto Player que detém o turno ativo."""
+        if not self.jogadores:
+            return None
+        return self.jogadores[self.indice_jogador_atual]
+
+    # --- [MÉTODOS ORIGINAIS ATUALIZADOS] ---
 
     def get_fase_atual(self):
         return self.fases[self.fase_atual_idx]
@@ -28,58 +47,64 @@ class TurnManager:
             print("Decida o Mulligan antes de prosseguir.")
             return
 
-        # Se estivermos em modo de seleção de alvo, bloqueamos a mudança de fase 
-        # para evitar bugs de regras (opcional, mas recomendado)
         if self.modo_selecao:
             print(f"Defina o alvo para {self.origem_alvo.name} antes de mudar de fase!")
             return
 
-        # Avança para a próxima
+        # Avança para a próxima fase
         self.fase_atual_idx += 1
         
-        # Se passar do Cleanup (última fase), volta para o Untap do próximo turno
+        # Se passar do Cleanup, muda o turno para o próximo jogador
         if self.fase_atual_idx >= len(self.fases):
-            self.fase_atual_idx = 0
-            
+            self.proximo_turno()
+            # Após mudar o turno, o novo jogador começa no UNTAP
+            novo_jogador = self.get_jogador_atual()
+            self.executar_fase_automatica(novo_jogador, assets_mgr, nome_deck)
+            return
+        
+        self.executar_fase_automatica(jogador, assets_mgr, nome_deck)
+
+    def executar_fase_automatica(self, jogador, assets_mgr, nome_deck):
+        """Encapsula a sua lógica de saltos automáticos para evitar repetição."""
         fase = self.get_fase_atual()
 
-        # --- LÓGICA DE SALTO AUTOMÁTICO (Início do Turno) ---
         if fase == "UNTAP":
             print(">>> Automatizando: Untap Step")
             jogador.untap_all()
-            jogador.mana_pool = {cor: 0 for cor in jogador.mana_pool}
+            # Zera a mana pool no início do turno
+            if hasattr(jogador, 'mana_pool'):
+                jogador.mana_pool = {cor: 0 for cor in jogador.mana_pool}
             self.proxima_fase(jogador, assets_mgr, nome_deck)
-            return
-
-        if fase == "UPKEEP":
+            
+        elif fase == "UPKEEP":
             print(">>> Automatizando: Upkeep Step")
             self.proxima_fase(jogador, assets_mgr, nome_deck)
-            return
-
-        if fase == "DRAW":
+            
+        elif fase == "DRAW":
             print(">>> Automatizando: Draw Step")
             jogador.draw(assets_mgr, 1, nome_deck)
             self.proxima_fase(jogador, assets_mgr, nome_deck)
-            return
-
-        # --- LÓGICA DE SALTO AUTOMÁTICO (Fim do Turno) ---
-        if fase == "CLEANUP":
+            
+        elif fase == "CLEANUP":
             print(">>> Automatizando: Cleanup Step")
             if len(jogador.hand) > 7:
                 print(f"Atenção: Você tem {len(jogador.hand)} cartas. Precisa descartar.")
             else:
                 self.proxima_fase(jogador, assets_mgr, nome_deck)
-                return
+        else:
+            print(f"--- AGUARDANDO JOGADOR: {fase} ---")
 
-        print(f"--- AGUARDANDO JOGADOR: {fase} ---")
+    def proximo_turno(self):
+        """Muda o índice para o próximo jogador da lista."""
+        self.indice_jogador_atual = (self.indice_jogador_atual + 1) % len(self.jogadores)
+        self.fase_atual_idx = 0
+        print(f"--- TURNO DE: {self.get_jogador_atual().name} ---")
 
     def finalizar_mulligan(self):
-        """Encerra a fase de mulligan e permite o início do jogo."""
         self.em_mulligan = False
         print("Mão mantida! O jogo começou.")
 
     def registrar_mulligan(self):
-        """Incrementa o contador de mulligans."""
         self.quantidade_mulligans += 1
 
     def reset_turn(self):

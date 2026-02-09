@@ -1,1 +1,14 @@
-{"name": "Blood for Bones", "type_line": "Sorcery", "oracle_text": "As an additional cost to cast this spell, sacrifice a creature.\nReturn a creature card from your graveyard to the battlefield, then return another creature card from your graveyard to your hand.", "mana_cost": "{3}{B}"}
+{
+    "name": "Blood for Bones",
+    "type_line": "Sorcery",
+    "mana_cost": "{3}{B}",
+    "cmc": 4.0,
+    "oracle_text": "As an additional cost to cast this spell, sacrifice a creature.\nReturn a creature card from your graveyard to the battlefield, then return another creature card from your graveyard to your hand.",
+    "flavor_text": "",
+    "power": "",
+    "toughness": "",
+    "rarity": "uncommon",
+    "colors": [
+        "B"
+    ]
+}

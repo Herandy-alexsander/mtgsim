@@ -1,1 +1,15 @@
-{"name": "Teysa Karlov", "type_line": "Legendary Creature — Human Advisor", "oracle_text": "If a creature dying causes a triggered ability of a permanent you control to trigger, that ability triggers an additional time.\nCreature tokens you control have vigilance and lifelink.", "mana_cost": "{2}{W}{B}"}
+{
+    "name": "Teysa Karlov",
+    "type_line": "Legendary Creature — Human Advisor",
+    "mana_cost": "{2}{W}{B}",
+    "cmc": 4.0,
+    "oracle_text": "If a creature dying causes a triggered ability of a permanent you control to trigger, that ability triggers an additional time.\nCreature tokens you control have vigilance and lifelink.",
+    "flavor_text": "While Kaya is guildmaster, Teysa waits patiently at the center of the Orzhov web of power.",
+    "power": "2",
+    "toughness": "4",
+    "rarity": "rare",
+    "colors": [
+        "B",
+        "W"
+    ]
+}

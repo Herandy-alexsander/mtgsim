@@ -1,1 +1,15 @@
-{"name": "Imperious Oligarch", "type_line": "Creature — Human Cleric", "oracle_text": "Vigilance\nAfterlife 1 (When this creature dies, create a 1/1 white and black Spirit creature token with flying.)", "mana_cost": "{W}{B}"}
+{
+    "name": "Imperious Oligarch",
+    "type_line": "Creature — Human Cleric",
+    "mana_cost": "{W}{B}",
+    "cmc": 2.0,
+    "oracle_text": "Vigilance\nAfterlife 1 (When this creature dies, create a 1/1 white and black Spirit creature token with flying.)",
+    "flavor_text": "The rights of ghosts are strictly protected under Orzhov bylaws, and those who enforce them can count on the ghosts' assistance.",
+    "power": "2",
+    "toughness": "1",
+    "rarity": "common",
+    "colors": [
+        "B",
+        "W"
+    ]
+}

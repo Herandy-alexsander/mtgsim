@@ -1,0 +1,14 @@
+{
+    "name": "Phyrexian Rebirth",
+    "type_line": "Sorcery",
+    "mana_cost": "{4}{W}{W}",
+    "cmc": 6.0,
+    "oracle_text": "Destroy all creatures, then create an X/X colorless Phyrexian Horror artifact creature token, where X is the number of creatures destroyed this way.",
+    "flavor_text": "As long as one drop of the oil exists, the joyous work continues.",
+    "power": "",
+    "toughness": "",
+    "rarity": "rare",
+    "colors": [
+        "W"
+    ]
+}

@@ -1,1 +1,14 @@
-{"name": "Twilight Drover", "type_line": "Creature — Spirit", "oracle_text": "Whenever a creature token leaves the battlefield, put a +1/+1 counter on this creature.\n{2}{W}, Remove a +1/+1 counter from this creature: Create two 1/1 white Spirit creature tokens with flying.", "mana_cost": "{2}{W}"}
+{
+    "name": "Twilight Drover",
+    "type_line": "Creature — Spirit",
+    "mana_cost": "{2}{W}",
+    "cmc": 3.0,
+    "oracle_text": "Whenever a creature token leaves the battlefield, put a +1/+1 counter on this creature.\n{2}{W}, Remove a +1/+1 counter from this creature: Create two 1/1 white Spirit creature tokens with flying.",
+    "flavor_text": "",
+    "power": "1",
+    "toughness": "1",
+    "rarity": "rare",
+    "colors": [
+        "W"
+    ]
+}

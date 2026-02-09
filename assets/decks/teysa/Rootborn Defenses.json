@@ -1,1 +1,14 @@
-{"name": "Rootborn Defenses", "type_line": "Instant", "oracle_text": "Populate. Creatures you control gain indestructible until end of turn. (To populate, create a token that's a copy of a creature token you control.)", "mana_cost": "{2}{W}"}
+{
+    "name": "Rootborn Defenses",
+    "type_line": "Instant",
+    "mana_cost": "{2}{W}",
+    "cmc": 3.0,
+    "oracle_text": "Populate. Creatures you control gain indestructible until end of turn. (To populate, create a token that's a copy of a creature token you control.)",
+    "flavor_text": "\"No harm can come to me while the Worldsoul shelters me.\"",
+    "power": "",
+    "toughness": "",
+    "rarity": "common",
+    "colors": [
+        "W"
+    ]
+}

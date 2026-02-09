@@ -1,1 +1,15 @@
-{"name": "Ethereal Absolution", "type_line": "Enchantment", "oracle_text": "Creatures you control get +1/+1.\nCreatures your opponents control get -1/-1.\n{2}{W}{B}: Exile target card from an opponent's graveyard. If it was a creature card, you create a 1/1 white and black Spirit creature token with flying.", "mana_cost": "{4}{W}{B}"}
+{
+    "name": "Ethereal Absolution",
+    "type_line": "Enchantment",
+    "mana_cost": "{4}{W}{B}",
+    "cmc": 6.0,
+    "oracle_text": "Creatures you control get +1/+1.\nCreatures your opponents control get -1/-1.\n{2}{W}{B}: Exile target card from an opponent's graveyard. If it was a creature card, you create a 1/1 white and black Spirit creature token with flying.",
+    "flavor_text": "\"Time to let the dead be dead.\"\n—Kaya, to Teysa",
+    "power": "",
+    "toughness": "",
+    "rarity": "rare",
+    "colors": [
+        "B",
+        "W"
+    ]
+}

@@ -1,1 +1,14 @@
-{"name": "Ministrant of Obligation", "type_line": "Creature — Human Cleric", "oracle_text": "Afterlife 2 (When this creature dies, create two 1/1 white and black Spirit creature tokens with flying.)", "mana_cost": "{2}{W}"}
+{
+    "name": "Ministrant of Obligation",
+    "type_line": "Creature — Human Cleric",
+    "mana_cost": "{2}{W}",
+    "cmc": 3.0,
+    "oracle_text": "Afterlife 2 (When this creature dies, create two 1/1 white and black Spirit creature tokens with flying.)",
+    "flavor_text": "When the price of your sins comes due, the Church of Deals is there to collect.",
+    "power": "2",
+    "toughness": "1",
+    "rarity": "uncommon",
+    "colors": [
+        "W"
+    ]
+}

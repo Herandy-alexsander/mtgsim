@@ -1,0 +1,14 @@
+{
+    "name": "Brilliant Restoration",
+    "type_line": "Sorcery",
+    "mana_cost": "{3}{W}{W}{W}{W}",
+    "cmc": 7.0,
+    "oracle_text": "Return all artifact and enchantment cards from your graveyard to the battlefield.",
+    "flavor_text": "\"We have done our best to heal this land together, but now I must entrust the future to my sister. She will carry our dreams onward into the sunrise.\"\n—Michiko Konda's journal",
+    "power": "",
+    "toughness": "",
+    "rarity": "rare",
+    "colors": [
+        "W"
+    ]
+}

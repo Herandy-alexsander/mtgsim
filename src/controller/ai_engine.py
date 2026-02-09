@@ -1,36 +1,50 @@
 import random
+import pygame
 
 class AIEngine:
     @staticmethod
     def pensar_e_jogar(item_jogador, assets_mgr, nome_deck, turn_mgr):
-        """
-        Executa a lógica de decisão para um bot.
-        item_jogador: dicionário {'player': obj, 'slot': int, 'is_bot': bool}
-        """
         bot = item_jogador['player']
-        fase_atual = turn_mgr.get_fase_atual().lower()
+        fase_atual = turn_mgr.get_fase_atual().upper()
 
-        # O Bot só age se for o turno dele (ou você pode permitir reações simples)
-        # Por enquanto, vamos focar no básico de Main Phase
-        if "main" in fase_atual:
-            AIEngine._executar_fase_principal(bot, assets_mgr, nome_deck)
+        if "MAIN" in fase_atual:
+            acao_realizada = AIEngine._executar_logica_principal(bot, assets_mgr, nome_deck)
+            
+            if not acao_realizada:
+                print(f"BOT [{bot.name}]: Sem jogadas disponíveis. Passando...")
+                turn_mgr.proxima_fase(bot, assets_mgr, nome_deck)
+        else:
+            # Pula fases automáticas ou de combate (por enquanto)
+            turn_mgr.proxima_fase(bot, assets_mgr, nome_deck)
 
     @staticmethod
-    def _executar_fase_principal(bot, assets_mgr, nome_deck):
-        # 1. Tentar jogar um terreno (prioridade máxima)
+    def _executar_logica_principal(bot, assets_mgr, nome_deck):
+        # --- 1. JOGAR TERRENO ---
         if bot.lands_played < bot.max_lands_per_turn:
-            terrenos_na_mao = [c for c in bot.hand if c.is_land]
-            if terrenos_na_mao:
-                terreno = random.choice(terrenos_na_mao)
+            terrenos = [c for c in bot.hand if getattr(c, 'is_land', False)]
+            if terrenos:
+                terreno = terrenos[0] 
                 bot.play_card(terreno, assets_mgr, nome_deck)
                 print(f"BOT [{bot.name}]: Jogou terreno {terreno.name}")
+                return True
 
-        # 2. Tentar jogar uma carta não-terreno aleatória (se tiver mana)
-        # Nota: Futuramente integrar com o sistema de custo de mana
-        nao_terrenos = [c for c in bot.hand if not c.is_land]
-        if nao_terrenos:
-            carta = random.choice(nao_terrenos)
-            # Simulação simples: Bot tem 30% de chance de conjurar algo por turno
-            if random.random() < 0.3:
+        # --- 2. GERAR MANA ---
+        if hasattr(bot, 'virar_tudo_para_gerar_mana'):
+            bot.virar_tudo_para_gerar_mana()
+
+        # --- 3. CONJURAR MÁGICAS ---
+        # Filtramos apenas o que não é terreno
+        nao_terrenos = [c for c in bot.hand if not getattr(c, 'is_land', False)]
+        
+        for carta in nao_terrenos:
+            # USANDO O NOVO MÉTODO DA CLASSE CARD:
+            # Isso garante que o Bot entenda custos como {1}{W}{B} corretamente
+            custo_formatado = carta.get_mana_dict()
+
+            # O Player tenta pagar o custo real
+            if bot.auto_tap_for_cost(custo_formatado):
                 bot.play_card(carta, assets_mgr, nome_deck)
-                print(f"BOT [{bot.name}]: Conjurou {carta.name}")
+                print(f"BOT [{bot.name}]: Conjurou {carta.name} pagando {carta.mana_cost}")
+                return True
+        
+        return False

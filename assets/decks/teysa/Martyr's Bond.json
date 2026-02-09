@@ -1,0 +1,14 @@
+{
+    "name": "Martyr's Bond",
+    "type_line": "Enchantment",
+    "mana_cost": "{4}{W}{W}",
+    "cmc": 6.0,
+    "oracle_text": "Whenever this enchantment or another nonland permanent you control is put into a graveyard from the battlefield, each opponent sacrifices a permanent of their choice that shares a card type with it.",
+    "flavor_text": "\"Our lives are connected by divine law. The truth of this will be made evident in time.\"\n—Zedruu the Greathearted",
+    "power": "",
+    "toughness": "",
+    "rarity": "rare",
+    "colors": [
+        "W"
+    ]
+}

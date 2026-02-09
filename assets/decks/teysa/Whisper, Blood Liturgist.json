@@ -1,1 +1,14 @@
-{"name": "Whisper, Blood Liturgist", "type_line": "Legendary Creature — Human Cleric", "oracle_text": "{T}, Sacrifice two creatures: Return target creature card from your graveyard to the battlefield.", "mana_cost": "{3}{B}"}
+{
+    "name": "Whisper, Blood Liturgist",
+    "type_line": "Legendary Creature — Human Cleric",
+    "mana_cost": "{3}{B}",
+    "cmc": 4.0,
+    "oracle_text": "{T}, Sacrifice two creatures: Return target creature card from your graveyard to the battlefield.",
+    "flavor_text": "\"Look how they beg for the knife! The Demonlord has trained them well.\"",
+    "power": "2",
+    "toughness": "2",
+    "rarity": "uncommon",
+    "colors": [
+        "B"
+    ]
+}

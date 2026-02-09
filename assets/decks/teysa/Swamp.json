@@ -1,1 +1,12 @@
-{"name": "Swamp", "type_line": "Basic Land — Swamp", "oracle_text": "({T}: Add {B}.)", "mana_cost": ""}
+{
+    "name": "Swamp",
+    "type_line": "Basic Land — Swamp",
+    "mana_cost": "",
+    "cmc": 0.0,
+    "oracle_text": "({T}: Add {B}.)",
+    "flavor_text": "",
+    "power": "",
+    "toughness": "",
+    "rarity": "common",
+    "colors": []
+}

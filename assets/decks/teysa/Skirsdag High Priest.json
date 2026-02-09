@@ -1,1 +1,14 @@
-{"name": "Skirsdag High Priest", "type_line": "Creature — Human Cleric", "oracle_text": "Morbid — {T}, Tap two untapped creatures you control: Create a 5/5 black Demon creature token with flying. Activate only if a creature died this turn.", "mana_cost": "{1}{B}"}
+{
+    "name": "Skirsdag High Priest",
+    "type_line": "Creature — Human Cleric",
+    "mana_cost": "{1}{B}",
+    "cmc": 2.0,
+    "oracle_text": "Morbid — {T}, Tap two untapped creatures you control: Create a 5/5 black Demon creature token with flying. Activate only if a creature died this turn.",
+    "flavor_text": "\"Thraben's pleas fall on deaf ears. Ours do not.\"",
+    "power": "1",
+    "toughness": "2",
+    "rarity": "rare",
+    "colors": [
+        "B"
+    ]
+}

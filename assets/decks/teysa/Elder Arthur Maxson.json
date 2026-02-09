@@ -1,1 +1,15 @@
-{"name": "Elder Arthur Maxson", "type_line": "Legendary Creature — Human Knight", "oracle_text": "Creature tokens you control have training. (Whenever a creature token you control attacks with another creature with greater power, put a +1/+1 counter on that token.)\nBlind Betrayal — Sacrifice another creature: Elder Arthur Maxson gains indestructible until end of turn.", "mana_cost": "{1}{W}{B}"}
+{
+    "name": "Elder Arthur Maxson",
+    "type_line": "Legendary Creature — Human Knight",
+    "mana_cost": "{1}{W}{B}",
+    "cmc": 3.0,
+    "oracle_text": "Creature tokens you control have training. (Whenever a creature token you control attacks with another creature with greater power, put a +1/+1 counter on that token.)\nBlind Betrayal — Sacrifice another creature: Elder Arthur Maxson gains indestructible until end of turn.",
+    "flavor_text": "",
+    "power": "4",
+    "toughness": "2",
+    "rarity": "rare",
+    "colors": [
+        "B",
+        "W"
+    ]
+}

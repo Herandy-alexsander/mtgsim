@@ -1,1 +1,12 @@
-{"name": "Smothering Abomination", "type_line": "Creature — Eldrazi", "oracle_text": "Devoid (This card has no color.)\nFlying\nAt the beginning of your upkeep, sacrifice a creature.\nWhenever you sacrifice a creature, draw a card.", "mana_cost": "{2}{B}{B}"}
+{
+    "name": "Smothering Abomination",
+    "type_line": "Creature — Eldrazi",
+    "mana_cost": "{2}{B}{B}",
+    "cmc": 4.0,
+    "oracle_text": "Devoid (This card has no color.)\nFlying\nAt the beginning of your upkeep, sacrifice a creature.\nWhenever you sacrifice a creature, draw a card.",
+    "flavor_text": "",
+    "power": "4",
+    "toughness": "3",
+    "rarity": "rare",
+    "colors": []
+}

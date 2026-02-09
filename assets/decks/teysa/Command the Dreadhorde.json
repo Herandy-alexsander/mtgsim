@@ -1,1 +1,14 @@
-{"name": "Command the Dreadhorde", "type_line": "Sorcery", "oracle_text": "Choose any number of target creature and/or planeswalker cards in graveyards. Command the Dreadhorde deals damage to you equal to the total mana value of those cards. Put them onto the battlefield under your control.", "mana_cost": "{4}{B}{B}"}
+{
+    "name": "Command the Dreadhorde",
+    "type_line": "Sorcery",
+    "mana_cost": "{4}{B}{B}",
+    "cmc": 6.0,
+    "oracle_text": "Choose any number of target creature and/or planeswalker cards in graveyards. Command the Dreadhorde deals damage to you equal to the total mana value of those cards. Put them onto the battlefield under your control.",
+    "flavor_text": "Liliana seized the reins of Bolas's vast army, gritting her teeth behind the Chain Veil.",
+    "power": "",
+    "toughness": "",
+    "rarity": "rare",
+    "colors": [
+        "B"
+    ]
+}

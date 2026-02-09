@@ -1,1 +1,14 @@
-{"name": "Dusk // Dawn", "type_line": "Sorcery // Sorcery", "oracle_text": "", "mana_cost": "{2}{W}{W} // {3}{W}{W}"}
+{
+    "name": "Dusk // Dawn",
+    "type_line": "Sorcery // Sorcery",
+    "mana_cost": "{2}{W}{W} // {3}{W}{W}",
+    "cmc": 9.0,
+    "oracle_text": "Destroy all creatures with power 3 or greater.",
+    "flavor_text": "",
+    "power": "",
+    "toughness": "",
+    "rarity": "rare",
+    "colors": [
+        "W"
+    ]
+}

@@ -1,1 +1,14 @@
-{"name": "Hunted Witness", "type_line": "Creature — Human", "oracle_text": "When this creature dies, create a 1/1 white Soldier creature token with lifelink.", "mana_cost": "{W}"}
+{
+    "name": "Hunted Witness",
+    "type_line": "Creature — Human",
+    "mana_cost": "{W}",
+    "cmc": 1.0,
+    "oracle_text": "When this creature dies, create a 1/1 white Soldier creature token with lifelink.",
+    "flavor_text": "He ferried weapons, spells, exotic animals—but his most dangerous cargo was the truth.",
+    "power": "1",
+    "toughness": "1",
+    "rarity": "common",
+    "colors": [
+        "W"
+    ]
+}

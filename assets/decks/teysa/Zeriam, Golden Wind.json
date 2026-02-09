@@ -1,1 +1,14 @@
-{"name": "Zeriam, Golden Wind", "type_line": "Legendary Creature — Griffin", "oracle_text": "Flying\nWhenever a Griffin you control deals combat damage to a player, create a 2/2 white Griffin creature token with flying.", "mana_cost": "{3}{W}"}
+{
+    "name": "Zeriam, Golden Wind",
+    "type_line": "Legendary Creature — Griffin",
+    "mana_cost": "{3}{W}",
+    "cmc": 4.0,
+    "oracle_text": "Flying\nWhenever a Griffin you control deals combat damage to a player, create a 2/2 white Griffin creature token with flying.",
+    "flavor_text": "\"For their courage, the griffins were granted domain over all the desert skies.\"\n—Afari, *Tales*",
+    "power": "3",
+    "toughness": "4",
+    "rarity": "rare",
+    "colors": [
+        "W"
+    ]
+}

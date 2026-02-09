@@ -1,1 +1,15 @@
-{"name": "Kambal, Profiteering Mayor", "type_line": "Legendary Creature — Human Advisor", "oracle_text": "Whenever one or more tokens your opponents control enter, for each of them, create a tapped token that's a copy of it. This ability triggers only once each turn.\nWhenever one or more tokens you control enter, each opponent loses 1 life and you gain 1 life.", "mana_cost": "{1}{W}{B}"}
+{
+    "name": "Kambal, Profiteering Mayor",
+    "type_line": "Legendary Creature — Human Advisor",
+    "mana_cost": "{1}{W}{B}",
+    "cmc": 3.0,
+    "oracle_text": "Whenever one or more tokens your opponents control enter, for each of them, create a tapped token that's a copy of it. This ability triggers only once each turn.\nWhenever one or more tokens you control enter, each opponent loses 1 life and you gain 1 life.",
+    "flavor_text": "",
+    "power": "2",
+    "toughness": "4",
+    "rarity": "rare",
+    "colors": [
+        "B",
+        "W"
+    ]
+}

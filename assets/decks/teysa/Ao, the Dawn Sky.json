@@ -1,1 +1,14 @@
-{"name": "Ao, the Dawn Sky", "type_line": "Legendary Creature — Dragon Spirit", "oracle_text": "Flying, vigilance\nWhen Ao dies, choose one —\n• Look at the top seven cards of your library. Put any number of nonland permanent cards with total mana value 4 or less from among them onto the battlefield. Put the rest on the bottom of your library in a random order.\n• Put two +1/+1 counters on each permanent you control that's a creature or Vehicle.", "mana_cost": "{3}{W}{W}"}
+{
+    "name": "Ao, the Dawn Sky",
+    "type_line": "Legendary Creature — Dragon Spirit",
+    "mana_cost": "{3}{W}{W}",
+    "cmc": 5.0,
+    "oracle_text": "Flying, vigilance\nWhen Ao dies, choose one —\n• Look at the top seven cards of your library. Put any number of nonland permanent cards with total mana value 4 or less from among them onto the battlefield. Put the rest on the bottom of your library in a random order.\n• Put two +1/+1 counters on each permanent you control that's a creature or Vehicle.",
+    "flavor_text": "",
+    "power": "5",
+    "toughness": "4",
+    "rarity": "mythic",
+    "colors": [
+        "W"
+    ]
+}

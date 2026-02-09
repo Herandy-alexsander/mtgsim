@@ -1,1 +1,15 @@
-{"name": "Hidden Stockpile", "type_line": "Enchantment", "oracle_text": "Revolt — At the beginning of your end step, if a permanent left the battlefield under your control this turn, create a 1/1 colorless Servo artifact creature token.\n{1}, Sacrifice a creature: Scry 1.", "mana_cost": "{W}{B}"}
+{
+    "name": "Hidden Stockpile",
+    "type_line": "Enchantment",
+    "mana_cost": "{W}{B}",
+    "cmc": 2.0,
+    "oracle_text": "Revolt — At the beginning of your end step, if a permanent left the battlefield under your control this turn, create a 1/1 colorless Servo artifact creature token.\n{1}, Sacrifice a creature: Scry 1.",
+    "flavor_text": "",
+    "power": "",
+    "toughness": "",
+    "rarity": "uncommon",
+    "colors": [
+        "B",
+        "W"
+    ]
+}

@@ -1,1 +1,14 @@
-{"name": "Field of Souls", "type_line": "Enchantment", "oracle_text": "Whenever a nontoken creature is put into your graveyard from the battlefield, create a 1/1 white Spirit creature token with flying.", "mana_cost": "{2}{W}{W}"}
+{
+    "name": "Field of Souls",
+    "type_line": "Enchantment",
+    "mana_cost": "{2}{W}{W}",
+    "cmc": 4.0,
+    "oracle_text": "Whenever a nontoken creature is put into your graveyard from the battlefield, create a 1/1 white Spirit creature token with flying.",
+    "flavor_text": "",
+    "power": "",
+    "toughness": "",
+    "rarity": "uncommon",
+    "colors": [
+        "W"
+    ]
+}

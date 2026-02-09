@@ -1,1 +1,14 @@
-{"name": "Dark Tutelage", "type_line": "Enchantment", "oracle_text": "At the beginning of your upkeep, reveal the top card of your library and put that card into your hand. You lose life equal to its mana value.", "mana_cost": "{2}{B}"}
+{
+    "name": "Dark Tutelage",
+    "type_line": "Enchantment",
+    "mana_cost": "{2}{B}",
+    "cmc": 3.0,
+    "oracle_text": "At the beginning of your upkeep, reveal the top card of your library and put that card into your hand. You lose life equal to its mana value.",
+    "flavor_text": "\"It is a rough road that leads to the heights of greatness.\"\n—Seneca, *Epistles*, trans. Gummere",
+    "power": "",
+    "toughness": "",
+    "rarity": "rare",
+    "colors": [
+        "B"
+    ]
+}

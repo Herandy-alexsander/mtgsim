@@ -1,1 +1,14 @@
-{"name": "Dictate of Heliod", "type_line": "Enchantment", "oracle_text": "Flash\nCreatures you control get +2/+2.", "mana_cost": "{3}{W}{W}"}
+{
+    "name": "Dictate of Heliod",
+    "type_line": "Enchantment",
+    "mana_cost": "{3}{W}{W}",
+    "cmc": 5.0,
+    "oracle_text": "Flash\nCreatures you control get +2/+2.",
+    "flavor_text": "\"In our war Heliod gave mortals some favor, yet other times he withheld aid. Are we still no more than game pieces to him?\"\n—Polyxene the Doubter",
+    "power": "",
+    "toughness": "",
+    "rarity": "rare",
+    "colors": [
+        "W"
+    ]
+}

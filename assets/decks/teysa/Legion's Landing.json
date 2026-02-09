@@ -1,1 +1,12 @@
-{"name": "Legion's Landing // Adanto, the First Fort", "type_line": "Legendary Enchantment // Legendary Land", "oracle_text": "", "mana_cost": ""}
+{
+    "name": "Legion's Landing // Adanto, the First Fort",
+    "type_line": "Legendary Enchantment // Legendary Land",
+    "mana_cost": "",
+    "cmc": 1.0,
+    "oracle_text": "When Legion's Landing enters, create a 1/1 white Vampire creature token with lifelink.\nWhen you attack with three or more creatures, transform Legion's Landing.",
+    "flavor_text": "\"I claim this land in the name of the queen.\"\n—Adrian Adanto of Lujio",
+    "power": "",
+    "toughness": "",
+    "rarity": "rare",
+    "colors": []
+}

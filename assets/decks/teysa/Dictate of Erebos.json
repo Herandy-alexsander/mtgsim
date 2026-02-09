@@ -1,1 +1,14 @@
-{"name": "Dictate of Erebos", "type_line": "Enchantment", "oracle_text": "Flash\nWhenever a creature you control dies, each opponent sacrifices a creature of their choice.", "mana_cost": "{3}{B}{B}"}
+{
+    "name": "Dictate of Erebos",
+    "type_line": "Enchantment",
+    "mana_cost": "{3}{B}{B}",
+    "cmc": 5.0,
+    "oracle_text": "Flash\nWhenever a creature you control dies, each opponent sacrifices a creature of their choice.",
+    "flavor_text": "\"I take no pleasure in your suffering, but it is necessary. Once you accept your fate you'll find eternity more tolerable.\"",
+    "power": "",
+    "toughness": "",
+    "rarity": "rare",
+    "colors": [
+        "B"
+    ]
+}

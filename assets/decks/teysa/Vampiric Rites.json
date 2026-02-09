@@ -1,1 +1,14 @@
-{"name": "Vampiric Rites", "type_line": "Enchantment", "oracle_text": "{1}{B}, Sacrifice a creature: You gain 1 life and draw a card.", "mana_cost": "{B}"}
+{
+    "name": "Vampiric Rites",
+    "type_line": "Enchantment",
+    "mana_cost": "{B}",
+    "cmc": 1.0,
+    "oracle_text": "{1}{B}, Sacrifice a creature: You gain 1 life and draw a card.",
+    "flavor_text": "Scions of the Markov line take particular pleasure in the perversion of humans' holy rituals.",
+    "power": "",
+    "toughness": "",
+    "rarity": "uncommon",
+    "colors": [
+        "B"
+    ]
+}

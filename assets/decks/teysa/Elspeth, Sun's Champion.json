@@ -1,0 +1,14 @@
+{
+    "name": "Elspeth, Sun's Champion",
+    "type_line": "Legendary Planeswalker — Elspeth",
+    "mana_cost": "{4}{W}{W}",
+    "cmc": 6.0,
+    "oracle_text": "+1: Create three 1/1 white Soldier creature tokens.\n−3: Destroy all creatures with power 4 or greater.\n−7: You get an emblem with \"Creatures you control get +2/+2 and have flying.\"",
+    "flavor_text": "",
+    "power": "",
+    "toughness": "",
+    "rarity": "mythic",
+    "colors": [
+        "W"
+    ]
+}

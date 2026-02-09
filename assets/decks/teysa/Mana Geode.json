@@ -1,1 +1,12 @@
-{"name": "Mana Geode", "type_line": "Artifact", "oracle_text": "When this artifact enters, scry 1.\n{T}: Add one mana of any color.", "mana_cost": "{3}"}
+{
+    "name": "Mana Geode",
+    "type_line": "Artifact",
+    "mana_cost": "{3}",
+    "cmc": 3.0,
+    "oracle_text": "When this artifact enters, scry 1.\n{T}: Add one mana of any color.",
+    "flavor_text": "\"I don't care if it's an all-powerful relic or a street vendor's lucky charm. If it brings you courage, wear it.\"\n—Saheeli Rai",
+    "power": "",
+    "toughness": "",
+    "rarity": "common",
+    "colors": []
+}

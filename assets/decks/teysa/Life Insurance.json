@@ -1,1 +1,15 @@
-{"name": "Life Insurance", "type_line": "Enchantment", "oracle_text": "Extort (Whenever you cast a spell, you may pay {W/B}. If you do, each opponent loses 1 life and you gain that much life.)\nWhenever a nontoken creature dies, you lose 1 life and create a Treasure token.", "mana_cost": "{3}{W}{B}"}
+{
+    "name": "Life Insurance",
+    "type_line": "Enchantment",
+    "mana_cost": "{3}{W}{B}",
+    "cmc": 5.0,
+    "oracle_text": "Extort (Whenever you cast a spell, you may pay {W/B}. If you do, each opponent loses 1 life and you gain that much life.)\nWhenever a nontoken creature dies, you lose 1 life and create a Treasure token.",
+    "flavor_text": "All the money in the world won't buy back a pulse.",
+    "power": "",
+    "toughness": "",
+    "rarity": "rare",
+    "colors": [
+        "B",
+        "W"
+    ]
+}

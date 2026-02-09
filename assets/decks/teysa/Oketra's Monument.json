@@ -1,1 +1,12 @@
-{"name": "Oketra's Monument", "type_line": "Legendary Artifact", "oracle_text": "White creature spells you cast cost {1} less to cast.\nWhenever you cast a creature spell, create a 1/1 white Warrior creature token with vigilance.", "mana_cost": "{3}"}
+{
+    "name": "Oketra's Monument",
+    "type_line": "Legendary Artifact",
+    "mana_cost": "{3}",
+    "cmc": 3.0,
+    "oracle_text": "White creature spells you cast cost {1} less to cast.\nWhenever you cast a creature spell, create a 1/1 white Warrior creature token with vigilance.",
+    "flavor_text": "\"The worthy shall respect the worthy. In the afterlife, all will stand united.\"\n—Monument inscription",
+    "power": "",
+    "toughness": "",
+    "rarity": "uncommon",
+    "colors": []
+}

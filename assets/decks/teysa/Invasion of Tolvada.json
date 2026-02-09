@@ -1,1 +1,12 @@
-{"name": "Invasion of Tolvada // The Broken Sky", "type_line": "Battle — Siege // Enchantment", "oracle_text": "", "mana_cost": ""}
+{
+    "name": "Invasion of Tolvada // The Broken Sky",
+    "type_line": "Battle — Siege // Enchantment",
+    "mana_cost": "",
+    "cmc": 5.0,
+    "oracle_text": "(As a Siege enters, choose an opponent to protect it. You and others can attack it. When it's defeated, exile it, then cast it transformed.)\nWhen this Siege enters, return target nonbattle permanent card from your graveyard to the battlefield.",
+    "flavor_text": "",
+    "power": "",
+    "toughness": "",
+    "rarity": "rare",
+    "colors": []
+}

@@ -1,1 +1,14 @@
-{"name": "Marshal's Anthem", "type_line": "Enchantment", "oracle_text": "Multikicker {1}{W} (You may pay an additional {1}{W} any number of times as you cast this spell.)\nCreatures you control get +1/+1.\nWhen this enchantment enters, return up to X target creature cards from your graveyard to the battlefield, where X is the number of times this enchantment was kicked.", "mana_cost": "{2}{W}{W}"}
+{
+    "name": "Marshal's Anthem",
+    "type_line": "Enchantment",
+    "mana_cost": "{2}{W}{W}",
+    "cmc": 4.0,
+    "oracle_text": "Multikicker {1}{W} (You may pay an additional {1}{W} any number of times as you cast this spell.)\nCreatures you control get +1/+1.\nWhen this enchantment enters, return up to X target creature cards from your graveyard to the battlefield, where X is the number of times this enchantment was kicked.",
+    "flavor_text": "",
+    "power": "",
+    "toughness": "",
+    "rarity": "rare",
+    "colors": [
+        "W"
+    ]
+}

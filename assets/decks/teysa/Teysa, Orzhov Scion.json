@@ -1,1 +1,15 @@
-{"name": "Teysa, Orzhov Scion", "type_line": "Legendary Creature — Human Advisor", "oracle_text": "Sacrifice three white creatures: Exile target creature.\nWhenever another black creature you control dies, create a 1/1 white Spirit creature token with flying.", "mana_cost": "{1}{W}{B}"}
+{
+    "name": "Teysa, Orzhov Scion",
+    "type_line": "Legendary Creature — Human Advisor",
+    "mana_cost": "{1}{W}{B}",
+    "cmc": 3.0,
+    "oracle_text": "Sacrifice three white creatures: Exile target creature.\nWhenever another black creature you control dies, create a 1/1 white Spirit creature token with flying.",
+    "flavor_text": "",
+    "power": "2",
+    "toughness": "3",
+    "rarity": "rare",
+    "colors": [
+        "B",
+        "W"
+    ]
+}

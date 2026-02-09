@@ -1,1 +1,14 @@
-{"name": "Syndicate Messenger", "type_line": "Creature — Bird", "oracle_text": "Flying\nAfterlife 1 (When this creature dies, create a 1/1 white and black Spirit creature token with flying.)", "mana_cost": "{3}{W}"}
+{
+    "name": "Syndicate Messenger",
+    "type_line": "Creature — Bird",
+    "mana_cost": "{3}{W}",
+    "cmc": 4.0,
+    "oracle_text": "Flying\nAfterlife 1 (When this creature dies, create a 1/1 white and black Spirit creature token with flying.)",
+    "flavor_text": "\"Many wings haunt the skies these days. Few of them bear good tidings.\"\n—Lavinia",
+    "power": "2",
+    "toughness": "3",
+    "rarity": "common",
+    "colors": [
+        "W"
+    ]
+}

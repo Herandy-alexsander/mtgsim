@@ -1,1 +1,14 @@
-{"name": "Regna, the Redeemer", "type_line": "Legendary Creature — Angel", "oracle_text": "Partner with Krav, the Unredeemed (When this creature enters, target player may put Krav into their hand from their library, then shuffle.)\nFlying\nAt the beginning of each end step, if your team gained life this turn, create two 1/1 white Warrior creature tokens.", "mana_cost": "{5}{W}"}
+{
+    "name": "Regna, the Redeemer",
+    "type_line": "Legendary Creature — Angel",
+    "mana_cost": "{5}{W}",
+    "cmc": 6.0,
+    "oracle_text": "Partner with Krav, the Unredeemed (When this creature enters, target player may put Krav into their hand from their library, then shuffle.)\nFlying\nAt the beginning of each end step, if your team gained life this turn, create two 1/1 white Warrior creature tokens.",
+    "flavor_text": "",
+    "power": "4",
+    "toughness": "4",
+    "rarity": "rare",
+    "colors": [
+        "W"
+    ]
+}

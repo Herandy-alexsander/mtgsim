@@ -1,1 +1,12 @@
-{"name": "Traveler's Amulet", "type_line": "Artifact", "oracle_text": "{1}, Sacrifice this artifact: Search your library for a basic land card, reveal it, put it into your hand, then shuffle.", "mana_cost": "{1}"}
+{
+    "name": "Traveler's Amulet",
+    "type_line": "Artifact",
+    "mana_cost": "{1}",
+    "cmc": 1.0,
+    "oracle_text": "{1}, Sacrifice this artifact: Search your library for a basic land card, reveal it, put it into your hand, then shuffle.",
+    "flavor_text": "The rider set off into the eerie mist, swaddled in armor and laden with amulets.",
+    "power": "",
+    "toughness": "",
+    "rarity": "common",
+    "colors": []
+}

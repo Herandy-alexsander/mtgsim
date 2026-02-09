@@ -1,1 +1,14 @@
-{"name": "Shambling Ghoul", "type_line": "Creature — Zombie", "oracle_text": "This creature enters tapped.", "mana_cost": "{1}{B}"}
+{
+    "name": "Shambling Ghoul",
+    "type_line": "Creature — Zombie",
+    "mana_cost": "{1}{B}",
+    "cmc": 2.0,
+    "oracle_text": "This creature enters tapped.",
+    "flavor_text": "Once he gets up and going, he will forever shamble on.",
+    "power": "2",
+    "toughness": "3",
+    "rarity": "common",
+    "colors": [
+        "B"
+    ]
+}

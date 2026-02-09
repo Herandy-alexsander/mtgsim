@@ -1,1 +1,15 @@
-{"name": "Ayli, Eternal Pilgrim", "type_line": "Legendary Creature — Kor Cleric", "oracle_text": "Deathtouch (Any amount of damage this deals to a creature is enough to destroy it.)\n{1}, Sacrifice another creature: You gain life equal to the sacrificed creature's toughness.\n{1}{W}{B}, Sacrifice another creature: Exile target nonland permanent. Activate only if you have at least 10 life more than your starting life total.", "mana_cost": "{W}{B}"}
+{
+    "name": "Ayli, Eternal Pilgrim",
+    "type_line": "Legendary Creature — Kor Cleric",
+    "mana_cost": "{W}{B}",
+    "cmc": 2.0,
+    "oracle_text": "Deathtouch (Any amount of damage this deals to a creature is enough to destroy it.)\n{1}, Sacrifice another creature: You gain life equal to the sacrificed creature's toughness.\n{1}{W}{B}, Sacrifice another creature: Exile target nonland permanent. Activate only if you have at least 10 life more than your starting life total.",
+    "flavor_text": "",
+    "power": "2",
+    "toughness": "3",
+    "rarity": "rare",
+    "colors": [
+        "B",
+        "W"
+    ]
+}

@@ -1,1 +1,12 @@
-{"name": "Plains", "type_line": "Basic Land — Plains", "oracle_text": "({T}: Add {W}.)", "mana_cost": ""}
+{
+    "name": "Plains",
+    "type_line": "Basic Land — Plains",
+    "mana_cost": "",
+    "cmc": 0.0,
+    "oracle_text": "({T}: Add {W}.)",
+    "flavor_text": "",
+    "power": "",
+    "toughness": "",
+    "rarity": "common",
+    "colors": []
+}

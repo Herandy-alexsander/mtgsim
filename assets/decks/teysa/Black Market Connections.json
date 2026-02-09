@@ -1,1 +1,14 @@
-{"name": "Black Market Connections", "type_line": "Enchantment", "oracle_text": "At the beginning of your first main phase, choose one or more —\n• Sell Contraband — Create a Treasure token. You lose 1 life.\n• Buy Information — Draw a card. You lose 2 life.\n• Hire a Mercenary — Create a 3/2 colorless Shapeshifter creature token with changeling. You lose 3 life. (It is every creature type.)", "mana_cost": "{2}{B}"}
+{
+    "name": "Black Market Connections",
+    "type_line": "Enchantment",
+    "mana_cost": "{2}{B}",
+    "cmc": 3.0,
+    "oracle_text": "At the beginning of your first main phase, choose one or more —\n• Sell Contraband — Create a Treasure token. You lose 1 life.\n• Buy Information — Draw a card. You lose 2 life.\n• Hire a Mercenary — Create a 3/2 colorless Shapeshifter creature token with changeling. You lose 3 life. (It is every creature type.)",
+    "flavor_text": "",
+    "power": "",
+    "toughness": "",
+    "rarity": "rare",
+    "colors": [
+        "B"
+    ]
+}
